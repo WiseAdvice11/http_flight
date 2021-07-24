@@ -1,5 +1,6 @@
 package ru.a1.http_flight.dao;
 
+import lombok.SneakyThrows;
 import ru.a1.http_flight.entity.Flight;
 import ru.a1.http_flight.entity.FlightStatus;
 import ru.a1.http_flight.util.ConnectionManager;
@@ -21,6 +22,9 @@ public class FlightDao implements Dao<Long, Flight> {
         FROM flight
         """;
 
+    private static final String CHECK = """
+            SELECT e from flight e""";
+
     public static FlightDao getInstance() {
         return INSTANCE;
     }
@@ -40,6 +44,7 @@ public class FlightDao implements Dao<Long, Flight> {
     }
 
     @Override
+    @SneakyThrows
     public List<Flight> findAll() {
         try (var connection = ConnectionManager.open();
             var preparedStatement = connection.prepareStatement(FIND_ALL)) {

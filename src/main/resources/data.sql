@@ -3,6 +3,8 @@ Drop table  if exists ticket;
 Drop table  if exists flight;
 Drop table  if exists aircraft;
 Drop table  if exists airport;
+Drop table  if exists users;
+
 
 -- CREATE DATABASE flight_repository;
 
@@ -73,6 +75,18 @@ CREATE TABLE ticket
     seat_no VARCHAR(4) NOT NULL,
     cost NUMERIC(8, 2) NOT NULL
 --     UNIQUE (flight_id, seat_no)
+);
+
+
+CREATE TABLE users
+(
+    id       BIGSERIAL PRIMARY KEY,
+    name     VARCHAR(124) NOT NULL,
+    birthday DATE         NOT NULL,
+    email    VARCHAR(124) NOT NULL UNIQUE,
+    password VARCHAR(32)  NOT NULL,
+    role     VARCHAR(32)  NOT NULL,
+    gender   VARCHAR(32)  NOT NULL
 );
 
 CREATE UNIQUE INDEX unique_flight_id_seat_no_idx ON ticket (flight_id, seat_no);
@@ -176,3 +190,6 @@ values ('112233', 'Иван Иванов', 1, 'A1', 200),
        ('NMNBV2', 'Лариса Тельникова', 9, 'B2', 217),
        ('23234A', 'Петр Петров', 9, 'D1', 189),
        ('123951', 'Полина Зверева', 9, 'D2', 234);
+
+
+

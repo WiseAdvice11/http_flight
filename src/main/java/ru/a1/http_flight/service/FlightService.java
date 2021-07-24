@@ -19,12 +19,15 @@ public class FlightService {
 
     public List<FlightDto> flightAll (){
 
-    return flightDao.findAll()
-            .stream()
-            .map( flight -> new FlightDto(flight.getId(), """
-                    %s - %s - %s
-                    """.formatted(flight.getDepartureAirportCode(),flight.getArrivalAirportCode(),flight.getStatus())))
-            .collect(toList());
+        return flightDao.findAll().stream()
+                .map(flight -> FlightDto.builder()
+                        .id(flight.getId())
+                        .description(
+                                """
+                                            %s - %s - %s
+                                        """.formatted(flight.getDepartureAirportCode(), flight.getArrivalAirportCode(), flight.getStatus()))
+                        .build())
+                .collect(toList());
     }
 
     public static FlightService getInstance() {
